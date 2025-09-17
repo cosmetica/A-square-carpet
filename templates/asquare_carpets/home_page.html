@@ -1,0 +1,81 @@
+{% extends "base.html" %}{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-navy to-sky opacity-90"></div>
+  <div class="container mx-auto px-4 py-20 md:py-28 text-white max-w-screen-xl">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">{{ page.hero_title }}</h1>
+      <p class="mt-5 text-lg md:text-xl text-white/90">{{ page.hero_text }}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        {% for b in page.hero_ctas %}
+          {% if b.value.style == "primary" %}
+            <a href="{{ b.value.page.url|default:b.value.url }}" class="rounded-xl bg-white text-navy px-6 py-3 font-semibold shadow hover:bg-white/90">{{ b.value.text }}</a>
+          {% else %}
+            <a href="{{ b.value.page.url|default:b.value.url }}" class="rounded-xl bg-white/10 text-white px-6 py-3 font-semibold border border-white/20 hover:bg-white/20">{{ b.value.text }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if page.stats %}
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-white/90">
+        {% for s in page.stats %}
+        <div><div class="text-3xl font-bold">{{ s.value.value }}</div><div class="text-sm">{{ s.value.label }}</div></div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="container mx-auto px-4 py-12 max-w-screen-xl">
+  <div class="prose max-w-none">{{ page.services_intro|richtext }}</div>
+  {% for pl in page.featured_services %}
+    {% if pl.value.pages %}
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      {% for p in pl.value.pages %}
+      <a href="{{ p.url }}" class="p-6 rounded-2xl bg-white shadow hover:shadow-lg transition block">
+        <h3 class="text-xl font-semibold">{{ p.title }}</h3>
+        {% if p.specific.intro %}<p class="mt-2 text-slate-600">{{ p.specific.intro|striptags|truncatechars:160 }}</p>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endfor %}
+</section>
+
+<section class="bg-white">
+  <div class="container mx-auto px-4 py-12 max-w-screen-xl">
+    <div class="prose max-w-none">{{ page.products_intro|richtext }}</div>
+    {% for pl in page.featured_products %}
+      {% if pl.value.pages %}
+      <div class="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {% for p in pl.value.pages %}
+        <a href="{{ p.url }}" class="rounded-2xl overflow-hidden border bg-slate-50 block">
+          <div class="h-40 bg-gradient-to-br from-sky/30 to-navy/30"></div>
+          <div class="p-5">
+            <h3 class="font-semibold">{{ p.title }}</h3>
+            {% if p.specific.summary %}<p class="text-slate-600 text-sm mt-1">{{ p.specific.summary|truncatechars:140 }}</p>{% endif %}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% if page.gallery_images %}
+<section class="bg-slate-100">
+  <div class="container mx-auto px-4 py-12 max-w-screen-xl">
+    <div class="prose max-w-none">{{ page.gallery_intro|richtext }}</div>
+    <div class="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {% for gi in page.gallery_images %}
+      <figure class="rounded-xl overflow-hidden border bg-white">
+        {% image gi.value.image fill-600x360 class="w-full h-auto" %}
+        {% if gi.value.caption %}<figcaption class="p-3 text-sm text-slate-600">{{ gi.value.caption }}</figcaption>{% endif %}
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

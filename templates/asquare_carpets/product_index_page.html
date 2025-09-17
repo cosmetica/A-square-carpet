@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load wagtailcore_tags %}
+{% block content %}
+<main class="container mx-auto px-4 py-16 max-w-screen-xl">
+  <h1 class="text-4xl font-bold">Products</h1>
+  <div class="prose mt-3 max-w-none">{{ page.intro|richtext }}</div>
+
+  <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for child in page.get_children.live %}
+      <a href="{{ child.url }}" class="rounded-2xl overflow-hidden border bg-white block hover:shadow-lg transition">
+        <div class="h-40 bg-gradient-to-br from-sky/30 to-navy/30"></div>
+        <div class="p-5">
+          <h3 class="font-semibold">{{ child.title }}</h3>
+          {% if child.specific.summary %}
+            <p class="text-slate-600 text-sm mt-1">{{ child.specific.summary|truncatechars:140 }}</p>
+          {% endif %}
+          <span class="inline-block mt-3 text-sm text-navy underline">ดูรายละเอียด</span>
+        </div>
+      </a>
+    {% empty %}
+      <div class="text-slate-500">ยังไม่มีสินค้า โปรดเพิ่มหน้า Product ใต้หน้า Products</div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

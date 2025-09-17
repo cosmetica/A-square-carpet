@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<main class="container mx-auto px-4 py-16 max-w-screen-xl">
+  <h1 class="text-4xl font-bold">Gallery</h1>
+  <div class="prose mt-3 max-w-none">{{ page.intro|richtext }}</div>
+
+  <div class="mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+    {% for gi in page.images.all %}
+    <figure class="rounded-xl overflow-hidden border bg-white">
+      {% image gi.image fill-600x360 class="w-full h-auto" %}
+      {% if gi.caption %}<figcaption class="p-3 text-sm text-slate-600">{{ gi.caption }}</figcaption>{% endif %}
+    </figure>
+    {% empty %}
+      <div class="text-slate-500">No images yet — add some in the editor.</div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

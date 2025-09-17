@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<article class="container mx-auto px-4 py-16 max-w-3xl">
+  <h1 class="text-4xl font-bold">{{ page.title }}</h1>
+  {% if page.summary %}<p class="mt-3 text-lg text-slate-700">{{ page.summary }}</p>{% endif %}
+  <div class="prose mt-6 max-w-none">{{ page.body|richtext }}</div>
+
+  {% if page.swatches %}
+  <h2 class="text-2xl font-semibold mt-10">Swatches</h2>
+  <div class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+    {% for s in page.swatches %}
+      <figure class="rounded-xl overflow-hidden border bg-white">
+        {% if s.value.image %}{% image s.value.image fill-400x240 class="w-full h-auto" %}{% else %}
+          <div class="h-40 bg-gradient-to-br from-sky/20 to-navy/20"></div>
+        {% endif %}
+        <figcaption class="p-2 text-sm text-slate-600">{{ s.value.name }}</figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
+{% endblock %}

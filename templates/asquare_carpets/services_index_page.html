@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% load wagtailcore_tags %}
+{% block content %}
+<main class="container mx-auto px-4 py-16 max-w-screen-xl">
+  <h1 class="text-4xl font-bold">Services</h1>
+  <div class="prose mt-3 max-w-none">{{ page.intro|richtext }}</div>
+  <div class="mt-10 grid md:grid-cols-2 gap-6">
+    {% for child in page.get_children.live %}
+      <a href="{{ child.url }}" class="p-6 rounded-2xl bg-white shadow hover:shadow-lg transition block">
+        {% if child.specific.icon %}<div class="text-3xl">{{ child.specific.icon }}</div>{% endif %}
+        <h2 class="text-2xl font-semibold mt-1">{{ child.title }}</h2>
+        {% if child.specific.intro %}<p class="mt-2 text-slate-600">{{ child.specific.intro|striptags|truncatechars:180 }}</p>{% endif %}
+      </a>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

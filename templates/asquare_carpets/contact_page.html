@@ -1,0 +1,38 @@
+{% extends "base.html" %}{% load wagtailcore_tags %}
+{% block content %}
+<main class="container mx-auto px-4 py-16 max-w-screen-xl">
+  <h1 class="text-4xl font-bold">Contact & Quotes</h1>
+  <div class="prose mt-3 max-w-none">{{ page.intro|richtext }}</div>
+
+  <div class="mt-10 grid md:grid-cols-2 gap-6">
+    <form action="{% pageurl page %}" method="POST" class="p-6 bg-white rounded-2xl shadow space-y-4">
+      {% csrf_token %}
+      {% for field in form %}
+      <div>
+        <label class="block text-sm font-semibold" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<p class="text-xs text-slate-500 mt-1">{{ field.help_text }}</p>{% endif %}
+        {% for error in field.errors %}<p class="text-sm text-red-600 mt-1">{{ error }}</p>{% endfor %}
+      </div>
+      {% endfor %}
+      <button class="rounded-xl bg-navy text-white px-4 py-2 font-semibold hover:bg-navy/90" type="submit">Send Request</button>
+    </form>
+
+    <aside class="p-6 bg-white rounded-2xl shadow">
+      <h2 class="text-2xl font-semibold">{{ settings.asquare_carpets.CompanySettings.brand_name }}</h2>
+      <p class="mt-2 text-slate-600">{{ settings.asquare_carpets.CompanySettings.address }}</p>
+      <p class="mt-1"><a class="text-navy hover:underline" href="mailto:{{ settings.asquare_carpets.CompanySettings.email }}">{{ settings.asquare_carpets.CompanySettings.email }}</a></p>
+      <p class="mt-1"><a class="text-navy hover:underline" href="tel:{{ settings.asquare_carpets.CompanySettings.phone }}">{{ settings.asquare_carpets.CompanySettings.phone }}</a></p>
+
+      <div class="mt-6 p-4 rounded-xl bg-slate-50 border">
+        <h3 class="font-semibold">Typical Turnaround</h3>
+        <ul class="list-disc ml-5 mt-2 text-sm text-slate-600 space-y-1">
+          <li>Samples: 1–2 days</li>
+          <li>Install: 24–48 hours from confirmation</li>
+          <li>Tear‑down & cleanup post‑event</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+{% endblock %}

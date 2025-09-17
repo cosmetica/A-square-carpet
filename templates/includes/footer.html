@@ -1,0 +1,41 @@
+{% load wagtailsettings_tags static %}
+{% get_settings %}
+<footer class="mt-20 bg-navy text-white">
+  <div class="container mx-auto px-4 py-12 grid md:grid-cols-4 gap-8 max-w-screen-xl">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <img src="{% static 'asquare_carpets/logo.svg' %}" class="h-8" alt="{{ settings.asquare_carpets.CompanySettings.brand_name }}"/>
+        <span class="font-semibold">{{ settings.asquare_carpets.CompanySettings.brand_name }}</span>
+      </div>
+      <p class="text-white/80 text-sm">{{ settings.asquare_carpets.CompanySettings.tagline }}</p>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-3">Company</h4>
+      <ul class="space-y-2 text-white/80">
+        <li><a class="hover:text-white" href="/about/">About</a></li>
+        <li><a class="hover:text-white" href="/gallery/">Gallery</a></li>
+        <li><a class="hover:text-white" href="/services/">Services</a></li>
+        <li><a class="hover:text-white" href="/products/">Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-3">Contact</h4>
+      <ul class="space-y-2 text-white/80 text-sm">
+        <li>{{ settings.asquare_carpets.CompanySettings.address }}</li>
+        <li><a href="mailto:{{ settings.asquare_carpets.CompanySettings.email }}" class="hover:text-white">{{ settings.asquare_carpets.CompanySettings.email }}</a></li>
+        <li><a href="tel:{{ settings.asquare_carpets.CompanySettings.phone }}" class="hover:text-white">{{ settings.asquare_carpets.CompanySettings.phone }}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-3">Get a Quote</h4>
+      <p class="text-white/80 text-sm mb-3">Tell us about your event or space—we’ll respond quickly.</p>
+      <a href="/contact/" class="inline-block rounded-xl bg-sky text-navy px-4 py-2 font-semibold hover:bg-skysoft">Request Now</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="container mx-auto px-4 py-4 text-sm text-white/70 flex justify-between max-w-screen-xl">
+      <span>© 2025 {{ settings.asquare_carpets.CompanySettings.brand_name }}. All rights reserved.</span>
+      <span>Designed with ♥ in Thailand.</span>
+    </div>
+  </div>
+</footer>

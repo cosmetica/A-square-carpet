@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% load wagtailcore_tags %}
+{% block content %}
+<main class="container mx-auto px-4 py-16 max-w-screen-xl">
+  <h1 class="text-4xl font-bold">About {{ settings.asquare_carpets.CompanySettings.brand_name }}</h1>
+  <div class="prose mt-3 max-w-none">{{ page.body|richtext }}</div>
+
+  {% if page.highlights %}
+  <div class="mt-10 grid md:grid-cols-3 gap-6">
+    {% for c in page.highlights %}
+    <div class="p-6 bg-white rounded-2xl shadow">
+      <h3 class="font-semibold">{{ c.value.title }}</h3>
+      {% if c.value.body %}<p class="text-slate-600 mt-2 text-sm">{{ c.value.body }}</p>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

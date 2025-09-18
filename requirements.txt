@@ -1,2 +1,9 @@
 Django>=5.2,<5.3
 wagtail>=7.1,<7.2
+gunicorn 
+whitenoise 
+dj-database-url 
+psycopg2-binary
+django-storages 
+google-cloud-storage 
+python-dotenv
